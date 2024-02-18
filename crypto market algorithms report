@@ -1,0 +1,14 @@
+SELECT 
+    c.algorithm,
+    SUM(CASE WHEN MONTH(dt) BETWEEN '01' AND '03' AND YEAR(dt) = 2020 THEN volume ELSE 0 END) AS Quarter1_Total,
+    SUM(CASE WHEN MONTH(dt) BETWEEN '04' AND '06' AND YEAR(dt) = 2020 THEN volume ELSE 0 END) AS Quarter2_Total,
+    SUM(CASE WHEN MONTH(dt) BETWEEN '07' AND '09' AND YEAR(dt) = 2020 THEN volume ELSE 0 END) AS Quarter3_Total,
+    SUM(CASE WHEN MONTH(dt) BETWEEN '10' AND '12' AND YEAR(dt) = 2020 THEN volume ELSE 0 END) AS Quarter4_Total
+FROM 
+    transactions t
+LEFT JOIN 
+    coins c ON t.coin_code = c.code
+GROUP BY 
+    c.algorithm
+ORDER BY 
+    c.algorithm ASC;
